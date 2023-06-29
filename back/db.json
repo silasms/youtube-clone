@@ -1,0 +1,25 @@
+{
+  "videos": [
+    {
+      "id": 1,
+      "title": "teste",
+      "description": "description teste",
+      "thumb": "floresta-paisagem.jpg",
+      "icon": "bola.png"
+    },
+    {
+      "id": 2,
+      "title": "teste 2",
+      "description": "description teste",
+      "thumb": "ilha-paisagem.jpg",
+      "icon": "coca-cola.png"
+    },
+    {
+      "id": 3,
+      "title": "teste 3",
+      "description": "description teste2",
+      "thumb": "montanha-paisagem.jpg",
+      "icon": "bola.png"
+    }
+  ]
+}

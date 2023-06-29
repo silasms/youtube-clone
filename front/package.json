@@ -1,0 +1,21 @@
+{
+  "name": "front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx http-server -c1 -c-1",
+    "style": "npx sass --watch style.scss style.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^14.1.1",
+    "undici": "^5.22.1"
+  },
+  "devDependencies": {
+    "sass": "^1.63.6"
+  }
+}

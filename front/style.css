@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", "Arial", sans-serif;
+}
+
+#videos {
+  display: flex;
+  gap: 10px;
+}
+#videos .card {
+  width: 360px;
+}
+#videos .card .image {
+  width: 100%;
+  height: 203px;
+  background-color: rgba(128, 128, 128, 0.45);
+  border-radius: 7px;
+}
+#videos .card .image:hover {
+  border-radius: 0px;
+  transition: border-radius 200ms ease-in;
+}
+#videos .card .infos {
+  display: flex;
+  padding: 0 5px;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 5px;
+}
+#videos .card .infos .icon {
+  background-color: rgba(128, 128, 128, 0.3);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+#videos .card .infos div {
+  margin-right: 20px;
+}
+#videos .card .infos div p {
+  background-color: rgba(128, 128, 128, 0.3);
+  height: 20px;
+  border-radius: 2px;
+  margin-top: 5px;
+}
+#videos .card .infos div .title {
+  width: 270px;
+  margin-bottom: 8px;
+  font-weight: 700;
+  font-size: 18px;
+}
+#videos .card .infos div .description {
+  width: 160px;
+}
+
+/*# sourceMappingURL=style.css.map */
