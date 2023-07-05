@@ -22,11 +22,15 @@
   border-radius: 0px;
   transition: border-radius 200ms ease-in;
 }
+#videos .card .hidden {
+  opacity: 0;
+  position: absolute;
+}
 #videos .card .infos {
   display: flex;
-  padding: 0 5px;
   align-items: center;
   justify-content: space-around;
+  gap: 8px;
   margin-top: 5px;
 }
 #videos .card .infos .icon {
@@ -53,6 +57,11 @@
 }
 #videos .card .infos div .description {
   width: 160px;
+}
+#videos .card .video-thumb {
+  z-index: 10;
+  width: 100%;
+  height: 203px;
 }
 
 /*# sourceMappingURL=style.css.map */
