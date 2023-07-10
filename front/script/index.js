@@ -1,10 +1,14 @@
-window.addEventListener("load", async (event) => {
+window.addEventListener("load", async () => {
   try {
     const response = await fetch("http://localhost:3000/get-videos")
     const videos = await response.json()
     const thumbs = document.querySelectorAll(".card")
     for (let i = 0; i < videos.length; i++) {
-      const {image, _info, icon, _texts, title, description} = getInformation(thumbs[i])
+      const thumb = thumbs[i]
+      const duration = document.createAttribute("duration")
+      duration.value = videos[i]["duration"]
+      thumb.setAttributeNode(duration)
+      const {image, _info, icon, _texts, title, description} = getInformation(thumb)
       const infos = [title, description]
       infos.forEach(element => element.style.backgroundColor = "transparent")
       title.textContent = videos[i]["title"]
@@ -14,9 +18,8 @@ window.addEventListener("load", async (event) => {
       const video = document.createElement("video")
       const videoClick = [ video, image ]
       videoClick.forEach( el => el.onclick = () => document.location.href = `./video.html?id=${videos[i]["id"]}`)
-      image.addEventListener("mouseover",() => videoShow(video, thumbs[i], image, videos[i]["id"]))
-      const removeVideo = [video, thumbs[i]]
-      removeVideo.forEach(element => element.addEventListener("mouseleave", () => resetVideoCard(image, video)))
+      const player = document.createElement("div")
+      image.addEventListener("mouseover",async () => await videoShow(video, thumb, image, videos[i]["id"], player))
     }
   } catch (error) {
     console.log(error.message)
@@ -30,7 +33,7 @@ function getInformation(container) {
   return {image, info, icon, texts, title, description}
 }
 
-function videoShow (video, container, image, id) {
+async function videoShow (video, container, image, id, player) {
   image.classList.add("hidden")
   video.classList.add("video-thumb")
   container.appendChild(video)
@@ -39,13 +42,38 @@ function videoShow (video, container, image, id) {
   const defaultVideo = [ "autoplay", "controls", "muted" ]
   defaultVideo.forEach(config => video[config] = true)
   video.play()
+  
+  const duration = container.getAttribute("duration")
+  player.classList.add("player")
+  const play = document.createElement("div")
+  play.classList.add("play")
+  const bar = document.createElement("input")
+  bar.type = "range"
+  bar.min = 0
+  bar.max = duration
+  bar.addEventListener("change", (event) => {
+    video.currentTime = event.target.value
+  })
+  player.appendChild(play)
+  player.appendChild(bar)
+  container.appendChild(player)
+
+  video.addEventListener("timeupdate", () => {
+    bar.value = video.currentTime
+  })
+
+  const removeVideo = [video, container]
+  removeVideo.forEach(element => element.addEventListener("mouseleave", () => resetVideoCard(image, video, player, play, bar)))
 }
 
-const resetVideoCard = (image, video) => {
+const resetVideoCard = (image, video, player, play, bar) => {
   image.classList.remove("hidden")
   video.removeAttribute("src")
   video.load()
   video.remove()
+  player.remove()
+  play.remove()
+  bar.remove()
 }
 
 function createThumbVideo(data) {
