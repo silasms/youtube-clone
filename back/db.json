@@ -5,21 +5,24 @@
       "title": "teste",
       "description": "description teste",
       "thumb": "floresta-paisagem.jpg",
-      "icon": "bola.png"
+      "icon": "bola.png",
+      "duration": 35
     },
     {
       "id": 2,
       "title": "teste 2",
       "description": "description teste",
       "thumb": "ilha-paisagem.jpg",
-      "icon": "coca-cola.png"
+      "icon": "coca-cola.png",
+      "duration": 10
     },
     {
       "id": 3,
       "title": "teste 3",
       "description": "description teste2",
       "thumb": "montanha-paisagem.jpg",
-      "icon": "bola.png"
+      "icon": "bola.png",
+      "duration": 10
     }
   ]
 }
