@@ -9,7 +9,7 @@ window.addEventListener("load", async () => {
       const duration = document.createAttribute("duration")
       duration.value = videos[i]["duration"]
       thumb.setAttributeNode(duration)
-      const {image, _info, icon, _texts, title, description} = getInformation(thumb)
+      const {image, info, icon, _texts, title, description} = getInformation(thumb)
       const infos = [title, description]
       infos.forEach(element => element.style.backgroundColor = "transparent")
       title.textContent = videos[i]["title"]
@@ -20,7 +20,7 @@ window.addEventListener("load", async () => {
       const videoClick = [ video, image ]
       videoClick.forEach( el => el.onclick = () => document.location.href = `./video.html?id=${videos[i]["id"]}`)
       const player = document.createElement("div")
-      image.addEventListener("mouseover",async () => await videoShow(video, thumb, image, videos[i]["id"], player))
+      image.addEventListener("mouseover",async () => await videoShow(video, thumb, image, videos[i]["id"], player, info))
     }
   } catch (error) {
     console.log(error.message)
@@ -48,6 +48,7 @@ async function videoShow (video, container, image, id, player) {
   const play = document.createElement("div")
   play.classList.add("play")
   const bar = document.createElement("input")
+  bar.value = 0
   bar.type = "range"
   bar.min = 0
   bar.max = duration
@@ -55,6 +56,7 @@ async function videoShow (video, container, image, id, player) {
     video.currentTime = event.target.value
   })
   player.appendChild(play)
+  info.classList.add("view:player")
   player.appendChild(bar)
   container.insertBefore(bar, image)
   container.appendChild(player)
