@@ -20,7 +20,7 @@ window.addEventListener("load", async () => {
       const videoClick = [ video, image ]
       videoClick.forEach( el => el.onclick = () => document.location.href = `./video.html?id=${videos[i]["id"]}`)
       const player = document.createElement("div")
-      image.addEventListener("mouseover",async () => await videoShow(video, thumb, image, videos[i]["id"], player, info))
+      image.addEventListener("mouseover",async () => await videoShow({video, container: thumb, image, id: videos[i]["id"], player, info}))
     }
   } catch (error) {
     console.log(error.message)
@@ -34,7 +34,7 @@ function getInformation(container) {
   return {image, info, icon, texts, title, description}
 }
 
-async function videoShow (video, container, image, id, player) {
+async function videoShow ({video, container, image, id, player, info}) {
   image.classList.add("hidden")
   video.classList.add("video-thumb")
   container.appendChild(video)
@@ -66,10 +66,10 @@ async function videoShow (video, container, image, id, player) {
   })
 
   const removeVideo = [video, container]
-  removeVideo.forEach(element => element.addEventListener("mouseleave", () => resetVideoCard(image, video, player, play, bar)))
+  removeVideo.forEach(element => element.addEventListener("mouseleave", () => resetVideoCard({image, video, player, play, bar, info})))
 }
 
-const resetVideoCard = (image, video, player, play, bar) => {
+const resetVideoCard = ({image, video, player, play, bar, info}) => {
   image.classList.remove("hidden")
   video.removeAttribute("src")
   video.load()
@@ -77,6 +77,7 @@ const resetVideoCard = (image, video, player, play, bar) => {
   player.remove()
   play.remove()
   bar.remove()
+  info.classList.remove("view:player")
 }
 
 function createThumbVideo(data) {
