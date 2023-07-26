@@ -80,7 +80,7 @@ const resetVideoCard = ({image, video, player, play, bar, info}) => {
   info.classList.remove("view:player")
 }
 
-function createThumbVideo(data) {
+function createThumbVideo() {
   const construct = `
     <div class="card">
       <img class="image"/>
