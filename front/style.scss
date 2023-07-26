@@ -26,6 +26,7 @@
 
     input[type=range] {
       position: relative;
+      top: -18px;
       appearance: none;
       width: 100%;
       cursor: pointer;
@@ -82,6 +83,12 @@
           width: 160px;
         }
       }
+    }
+
+    .view\:player {
+      position: relative;
+      top: -18px;
+      margin-bottom: -18px;
     }
 
     .video-thumb {
