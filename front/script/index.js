@@ -1,5 +1,6 @@
 window.addEventListener("load", async () => {
   try {
+    loadThumbPage()
     const response = await fetch("http://localhost:3000/get-videos")
     const videos = await response.json()
     const thumbs = document.querySelectorAll(".card")
@@ -39,9 +40,8 @@ async function videoShow (video, container, image, id, player) {
   container.appendChild(video)
   container.insertBefore(video, image)
   video.src = `http://localhost:3000/get-video/${id}`
-  const defaultVideo = [ "autoplay", "controls", "muted" ]
+  const defaultVideo = [ "autoplay", "muted" ]
   defaultVideo.forEach(config => video[config] = true)
-  video.play()
   
   const duration = container.getAttribute("duration")
   player.classList.add("player")
@@ -56,6 +56,7 @@ async function videoShow (video, container, image, id, player) {
   })
   player.appendChild(play)
   player.appendChild(bar)
+  container.insertBefore(bar, image)
   container.appendChild(player)
 
   video.addEventListener("timeupdate", () => {
@@ -79,8 +80,7 @@ const resetVideoCard = (image, video, player, play, bar) => {
 function createThumbVideo(data) {
   const construct = `
     <div class="card">
-      <div class="image"></div>
-      <img src="" alt=""/>
+      <img class="image"/>
       <div class="infos">
         <img class="icon"/>
         <div>
@@ -89,7 +89,21 @@ function createThumbVideo(data) {
         </div>
       </div>
     </div>`
+  return construct
 }
 
-async function loadPage() {
+async function loadThumbPage() {
+  const videos = document.getElementById("videos")
+  const heightCard = 360
+  const heightScreen = screen.height
+  for (let i = 0; i < 100; i++) {
+    const height = videos.offsetHeight
+    const thumb = createThumbVideo()
+    if (height > heightScreen + heightCard) {
+      const lastCard = Array.from(videos.children).pop()
+      lastCard.remove()
+      break
+    }
+    videos.innerHTML += thumb
+  }
 }
