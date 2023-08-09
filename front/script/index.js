@@ -47,14 +47,7 @@ async function videoShow ({video, container, image, id, player, info}) {
   player.classList.add("player")
   const play = document.createElement("div")
   play.classList.add("play")
-  const bar = document.createElement("input")
-  bar.value = 0
-  bar.type = "range"
-  bar.min = 0
-  bar.max = duration
-  bar.addEventListener("change", (event) => {
-    video.currentTime = event.target.value
-  })
+  const bar = createBar(duration)
   player.appendChild(play)
   info.classList.add("view:player")
   player.appendChild(bar)
@@ -65,8 +58,12 @@ async function videoShow ({video, container, image, id, player, info}) {
     bar.value = video.currentTime
   })
 
-  const removeVideo = [video, container]
-  removeVideo.forEach(element => element.addEventListener("mouseleave", () => resetVideoCard({image, video, player, play, bar, info})))
+  eventRemoveVideo({image, video, player, play, bar, info, container})
+}
+
+function eventRemoveVideo({image, video, player, play, bar, info, container}) {
+  const removeItem = [video, container]
+  removeItem.forEach(element => element.addEventListener("mouseleave", () => resetVideoCard({image, video, player, play, bar, info})))
 }
 
 const resetVideoCard = ({image, video, player, play, bar, info}) => {
@@ -78,6 +75,18 @@ const resetVideoCard = ({image, video, player, play, bar, info}) => {
   play.remove()
   bar.remove()
   info.classList.remove("view:player")
+}
+
+function createBar(duration) {
+  const bar = document.createElement("input")
+  bar.value = 0
+  bar.type = "range"
+  bar.min = 0
+  bar.max = duration
+  bar.addEventListener("change", (event) => {
+    video.currentTime = event.target.value
+  })
+  return bar
 }
 
 function createThumbVideo() {
